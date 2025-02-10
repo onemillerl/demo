@@ -1,0 +1,21 @@
+{{ define "updateproduct" }}
+    {{ template "header" . }}
+    <div class="container py-5">
+        <h1 class="text-center">Update Product </h1>
+        <div class="row justify-content-center">
+            <div class="card border-0 col-lg-4 col-md-6 col-sm-12 p-1">
+                <div class="card-body">
+                    <h3 class="text-center text-danger">Congratulations! You have Updated a product.</h3>
+                    <h5 class="card-title">Personal Information</h5>
+                    <p class="card-text"><strong>UpdateProduct Id:</strong> {{ .UpdateProduct.Id }}</p>
+                    <p class="card-text"><strong>Created Product Name:</strong> {{ .UpdateProduct.Name }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center mt-4">
+        <a href="/productcenter" class="btn btn-info">Back to Product Center</a>
+        <a href="/" class="btn btn-success ms-3">Back to Home</a>
+    </div>
+    {{ template "footer" . }}
+{{ end }}

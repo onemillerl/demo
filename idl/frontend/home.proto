@@ -1,0 +1,19 @@
+// idl/hello/hello.proto
+syntax = "proto3";
+
+package frontend.home;
+
+option go_package = "frontend/home";
+
+// import "idl/api.proto";
+// import "idl/frontend/common.proto";
+import "api.proto";
+import "frontend/common.proto";
+
+message Empty {}
+
+service HomeService {
+   rpc home(common.Empty) returns(common.Empty) {   // 这是一个接口，但不一定需要，传的是空的
+      option (api.get) = "/";
+   }
+}

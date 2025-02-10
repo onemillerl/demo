@@ -1,0 +1,10 @@
+{{ define "product-center-icon" }}
+    <a href="/productcenter" class="btn position-relative border rounded-circle p-2" style="border: 2px solid #007bff;">
+        <i class="fa-solid fa-cogs fa-xl"></i> <!-- 你可以换成产品中心的图标 -->
+        {{ if $.product_count }}
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {{ $.product_count }} <!-- 可以显示产品数量 -->
+            </span>
+        {{ end }}
+    </a>
+{{ end }}

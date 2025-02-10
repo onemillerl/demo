@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package frontend.product_center;
+
+import "api.proto";
+import "frontend/common.proto";
+
+option go_package = "/frontend/product_center";
+
+service product_centerService {
+    rpc Getproduct_center(common.Empty) returns (common.Empty) {
+        option (api.get) = "/productcenter";
+    }
+    rpc Searchproduct_centers(Searchproduct_centersReq) returns (common.Empty) {
+        option (api.get) = "productcenter/search";
+    }
+    rpc Createproduct_center(Createproduct_centerReq) returns (common.Empty) {
+        option (api.post) = "/productcenter"; // POST 请求用于创建商品
+    }
+    rpc Updateproduct_center(Updateproduct_centerReq) returns (common.Empty) {
+        option (api.post) = "/productcenter/update"; // PUT 请求用于更新商品
+    }
+    rpc Deleteproduct_center(Deleteproduct_centerReq) returns (common.Empty) {
+        option (api.post) = "/productcenter/delete"; // DELETE 请求用于删除商品
+    }
+}
+
+message product_centerReq {
+    uint32 id = 1 [ (api.query) = "id"];
+}
+
+message Searchproduct_centersReq {
+    string q = 1 [(api.query) = "q"];
+    string next = 2 [(api.query)="next"];
+
+}
+
+message Createproduct_centerReq {
+    string name = 1;
+    string description = 2;
+    string picture = 3;
+    float price = 4;
+    repeated string categories = 5;
+    string token = 6;
+    string password = 7;
+    string password_confirm = 8;
+    int32 user_id = 9;
+    string next = 10 [(api.query)="next"];
+
+}
+
+message Updateproduct_centerReq {
+    uint32 id = 1;
+    string name = 2;
+    string description = 3;
+    string picture = 4;
+    float price = 5;
+    repeated string categories = 6;
+    string token = 7;
+    string next = 8 [(api.query)="next"];
+
+}
+
+message Deleteproduct_centerReq {
+    uint32 id = 1;
+    string token = 2;
+    string next = 3 [(api.query)="next"];
+
+}

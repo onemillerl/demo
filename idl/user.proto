@@ -1,0 +1,100 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "/user";
+
+// 注册请求
+message RegisterReq {
+    string email = 1;
+    string password = 2;
+    string password_confirm = 3;
+    string nickname = 4;  // 新增昵称字段
+    string role = 5;      // 新增用户身份字段，例如 "admin"、"buyer"、"seller"
+}
+
+// 注册响应
+message RegisterResp {
+    int32 user_id = 1;
+    string token = 2;  
+}
+
+// 登录请求
+message LoginReq {
+    string email = 1;
+    string password = 2;
+}
+
+// 登录响应
+message LoginResp {
+    int32 user_id = 1;
+    string token = 2;  
+}
+
+// 获取用户信息请求
+message GetUserInfoReq {
+    int32 user_id = 1;
+}
+
+
+
+// 获取用户信息响应
+message GetUserInfoResp {
+    int32 user_id = 1;
+    string email = 2;
+    string nickname = 3;  // 返回昵称
+    string role = 4;      // 返回用户身份
+    repeated int32 product_ids = 5;  // 正确的写法
+}
+
+// 更新用户信息请求
+message UpdateUserInfoReq {
+    int32 user_id = 1;
+    string email = 2;
+    string nickname = 3;   // 可选项：更新昵称
+    string role = 4;       // 可选项：更新身份
+    string password = 5;   // 可选项：更新密码
+    string password_confirm = 6;
+    int32 productid = 7;
+
+}
+
+// 更新用户信息响应
+message UpdateUserInfoResp {
+    int32 user_id = 1;
+    string email = 2;
+    string nickname = 3;   // 可选项：更新昵称
+    string role = 4;       // 可选项：更新身份     
+}
+
+// 注销用户请求
+message DeleteUserReq {
+    int32 user_id = 1;
+    string password = 2;   // 密码
+}
+
+// 注销用户响应
+message DeleteUserResp {
+    bool success = 1;  // 表示注销是否成功
+}
+
+// 删除用户绑定的商品id请求
+message DeleteProductIdReq {
+    int32 id = 1;
+}
+
+// 删除用户绑定的商品id
+message DeleteProductIdResp {
+    bool success = 1;  // 表示注销是否成功
+}
+
+
+service UserService {
+    rpc Register(RegisterReq) returns (RegisterResp) {}
+    rpc Login(LoginReq) returns (LoginResp) {}
+    rpc GetUserInfo(GetUserInfoReq) returns (GetUserInfoResp) {} 
+    rpc UpdateUserInfo(UpdateUserInfoReq) returns (UpdateUserInfoResp) {}  // 新增更新用户信息方法
+    rpc DeleteUser(DeleteUserReq) returns (DeleteUserResp) {}               // 新增注销用户方法
+    rpc DeleteProductId(DeleteProductIdReq) returns (DeleteProductIdResp) {}               // 新增注销用户方法
+
+}

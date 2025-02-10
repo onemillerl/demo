@@ -1,0 +1,85 @@
+syntax = "proto3";  // 登录注册的接口
+
+package frontend.auth;
+
+import "api.proto";
+import "frontend/common.proto";
+
+option go_package = "frontend/auth";
+
+// 空消息定义
+message Empty {}
+
+// 登录请求
+message LoginReq {
+   string email = 1 [(api.form)="email"];
+   string password = 2 [(api.form)="password"];
+   string next = 3 [(api.query)="next"];
+}
+
+// 注册请求
+message RegisterReq {
+   string email = 1 [(api.form) = "email"];
+   string password = 2 [(api.form) = "password"];
+   string password_confirm = 3 [(api.form) = "password_confirm"];
+   string nickname = 4 [(api.form) = "nickname"];  // 新增昵称字段
+   string role = 5 [(api.form) = "role"];      // 新增用户身份字段，例如 "admin"、"buyer"、"seller"
+}
+
+// 获取用户信息请求
+message GetuserinfoReq {
+   int32 user_id = 1 [(api.form) = "user_id"];
+   string next = 2 [(api.query)="next"];
+}
+
+// 用户注销
+message DeleteUserReq {
+   string password = 1 [(api.form)="password"];
+   string next = 2 [(api.query)="next"];
+}
+
+
+// 更新用户信息
+message UpdateUserInfoReq {
+
+   string password = 1 [(api.form) = "password"];
+   string password_confirm = 2 [(api.form) = "password_confirm"];
+   string nickname = 3 [(api.form) = "nickname"];  // 新增昵称字段
+   string role = 4 [(api.form) = "role"];      // 新增用户身份字段
+   string next = 5 [(api.query)="next"];
+   string email = 6 [(api.form) = "email"];
+
+}
+
+
+service AuthService {
+   // 登录接口
+   rpc Login(LoginReq) returns (common.Empty) {
+     option (api.post) = "/auth/login";
+   }
+
+   // 注册接口
+   rpc Register(RegisterReq) returns (common.Empty) {
+     option (api.post) = "/auth/register";
+   }
+
+   // 退出登录接口
+   rpc Logout(common.Empty) returns (common.Empty) {
+      option (api.post) = "/auth/logout";
+   }
+
+   // 获取用户信息接口
+   rpc Getuserinfo(GetuserinfoReq) returns (common.Empty) {
+      option (api.get) = "/auth/getuserinfo";  // 修改 URL
+   }
+
+   // 用户注销接口
+   rpc DeleteUser(DeleteUserReq) returns (common.Empty) {
+      option (api.post) = "/auth/DeleteUser";  // 修改 URL
+   }
+
+   // 更新用户信息接口
+   rpc UpdateUserInfo(UpdateUserInfoReq) returns (common.Empty) {
+      option (api.get) = "/auth/UpdateUserInfo";  // 修改 URL
+   }
+}

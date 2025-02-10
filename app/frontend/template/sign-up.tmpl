@@ -1,0 +1,38 @@
+{{define "sign-up"}}
+{{ template "header" . }}
+    <div class="row justify-content-center">
+        <div class="col-4">
+        <form method="post" action="/auth/register">
+            <div class="mb-3">
+              <label for="email" class="form-label">Email {{template "required"}}</label>
+              <input type="email" class="form-control" id="email" name="email">
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password {{template "required"}}</label>
+              <input type="password" class="form-control" id="password" name="password">
+            </div>
+            <div class="mb-3">
+                <label for="password_confirm" class="form-label">Password Confirm {{template "required"}}</label>
+                <input type="password" class="form-control" id="password_confirm" name="password_confirm">
+            </div>
+            <div class="mb-3">
+                <label for="nickname" class="form-label">Nickname {{template "required"}}</label>
+                <input type="nickname" class="form-control" id="nickname" name="nickname">
+            </div>
+            <div class="mb-3">
+                <label for="role" class="form-label">Role {{template "required"}}</label>
+                <select class="form-select" id="role" name="role">
+                    <option value="admin">Admin</option>
+                    <option value="customer">Comuser</option> 'admin', 'customer' or 'seller'")
+                    <option value="seller"> Seller</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                Already have a account, click here to <a href="/sign-in">Sign In</a>.
+            </div>
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+          </form>
+    </div>
+</div>
+{{ template "footer" .}}
+{{end}}

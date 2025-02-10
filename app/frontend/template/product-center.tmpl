@@ -1,0 +1,207 @@
+{{ define "productcenter" }}
+    {{ template "header" . }}
+    <div class="container mt-4">
+        <h2 class="text-center">Manage Your Products</h2>
+
+        
+        <div class="row">
+            <!-- 显示产品列表 -->
+            <!-- 产品展示 -->
+            <form action="/productcenter" method="GET">
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    {{ range $.items }}
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="{{ .Picture }}" class="card-img-top" alt="{{ .Name }}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ .Name }}</h5>
+                                    <p class="card-text">Price: ${{ .Price }}</p>
+                                    <p class="card-text">Description: {{ .Description }}</p>
+
+                                    <a href="#" class="btn btn-primary" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#editProductModal" 
+                                        data-id="{{ if .Id }}{{ .Id }}{{ else }}0{{ end }}"
+                                        data-name="{{ .Name }}" 
+                                        data-price="{{ .Price }}" 
+                                        data-Description="{{ .Description }}">
+                                        Edit
+                                    </a>
+                                    <a href="#" class="btn btn-danger" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#deleteProductModal" 
+                                    data-id="{{ .Id }}" 
+                                    data-password="{{ .password }}">
+                                    Delete
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {{ end }}
+                </div>
+            </form>
+
+            <!-- 编辑产品模态框 -->
+            <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="editProductForm" action="/productcenter/update?next={{ .next }}" method="POST">
+                                <input type="hidden" id="editProductID" name="id">
+                                <!-- 产品名称 -->
+                                <div class="mb-3">
+                                    <label for="editProductName" class="form-label">Product Name</label>
+                                    <input type="text" class="form-control" id="editProductName" name="name" required>
+                                </div>
+                                <!-- 产品图片 -->
+                                <div class="mb-3">
+                                    <label for="editProductPicture" class="form-label">Product Picture URL</label>
+                                    <input type="text" class="form-control" id="editProductPicture" name="picture">
+                                </div>
+                                <!-- 产品价格 -->
+                                <div class="mb-3">
+                                    <label for="editProductPrice" class="form-label">Price ($)</label>
+                                    <input type="number" class="form-control" id="editProductPrice" name="price" step="0.01" required>
+                                </div>
+                                <!-- 产品描述 -->
+                                <div class="mb-3">
+                                    <label for="editProductDescription" class="form-label">Description</label>
+                                    <input type="text" class="form-control" id="editProductDescription" name="description" required>
+                                </div>
+                                <!-- 产品类别 -->
+                                <div class="mb-3">
+                                    <label for="editProductCategories" class="form-label">Categories (Comma separated numbers)</label>
+                                    <input type="text" class="form-control" id="editProductCategories" name="categories" placeholder="e.g. 1,2,3">
+                                </div>
+                                <!-- 提交按钮 -->
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 删除产品模态框 -->
+            <div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteProductModalLabel">Delete Product</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure you want to delete the product <strong id="deleteProductName"></strong>?</p>
+                            <form id="deleteProductForm" action="/productcenter/delete?next={{ .next }}" method="POST">
+                                <input type="hidden" id="deleteProductID" name="id">
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password" name="password" required>
+                                </div>
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <script>
+                // When the edit modal is about to be shown, populate the form fields
+                var editProductModal = document.getElementById('editProductModal');
+                editProductModal.addEventListener('show.bs.modal', function (event) {
+                    var button = event.relatedTarget; // Button that triggered the modal
+                    var productId = button.getAttribute('data-id');
+                    var productName = button.getAttribute('data-name');
+                    var productPrice = button.getAttribute('data-price');
+                    var productDescription = button.getAttribute('data-description'); // 注意：改为 data-description
+
+                    // Fill the modal's input fields with the product's data
+                    var modal = editProductModal.querySelector('.modal-body form');
+                    modal.querySelector('#editProductID').value = productId;
+                    modal.querySelector('#editProductName').value = productName;
+                    modal.querySelector('#editProductPrice').value = productPrice;
+                    modal.querySelector('#editProductDescription').value = productDescription;
+                });
+
+                // When the delete modal is about to be shown, populate the form fields
+                var deleteProductModal = document.getElementById('deleteProductModal');
+                deleteProductModal.addEventListener('show.bs.modal', function (event) {
+                    var button = event.relatedTarget; // Button that triggered the modal
+                    var productId = button.getAttribute('data-id');
+                    var productName = button.getAttribute('data-name');
+
+                    // Fill the modal's input fields with the product's data
+                    var modal = deleteProductModal.querySelector('.modal-body form');
+                    modal.querySelector('#deleteProductID').value = productId;
+                    modal.querySelector('#deleteProductName').textContent = productName; // Set the product name in the modal body
+                });
+            </script>
+
+        </div>
+
+
+        {{ if not $.items }}
+            <h3 class="text-center text-danger">You don't have any products yet.</h3>
+        {{ else }}
+            <h3 class="text-center text-danger">You can create products here.</h3>
+        {{ end }}
+
+        <!-- 触发模态框 -->
+        <div class="text-center mt-4">
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                Add a New Product
+            </button>
+        </div>
+
+        <!-- 商品添加模态框 -->
+        <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addProductModalLabel">Add a New Product</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/productcenter" method="POST">
+                            <div class="mb-3">
+                                <label for="productName" class="form-label">Product Name</label>
+                                <input type="text" class="form-control" id="productName" name="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="productDescription" class="form-label">Description</label>
+                                <textarea class="form-control" id="productDescription" name="description" rows="3" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="productPicture" class="form-label">Product Image URL</label>
+                                <input type="text" class="form-control" id="productPicture" name="picture" required placeholder="/static/image/t-shirt-2.jpeg">
+                            </div>
+                            <div class="mb-3">
+                                <label for="productPrice" class="form-label">Price ($)</label>
+                                <input type="number" class="form-control" id="productPrice" name="price" step="0.01" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="productCategories" class="form-label">Categories (comma-separated)</label>
+                                <input type="text" class="form-control" id="productCategories" name="categories" placeholder="e.g. Electronics, Home Appliances" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password">
+                            </div>
+                            <div class="mb-3">
+                                <label for="password_confirm" class="form-label">Password Confirm</label>
+                                <input type="password" class="form-control" id="password_confirm" name="password_confirm">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ template "footer" . }}
+{{ end }}

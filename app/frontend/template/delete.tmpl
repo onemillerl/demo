@@ -1,0 +1,42 @@
+{{ define "delete" }}
+    {{ template "header" . }}
+
+    <div class="container">
+        <h2>删除商店</h2>
+        <form id="deleteForm" action="/product" method="post">
+            <div class="form-group">
+                <label for="productId">请输入商品ID：</label>
+                <input type="number" id="productId" name="productId" class="form-control" required />
+            </div>
+            <button type="submit" class="btn btn-danger">删除商品</button>
+        </form>
+        
+        <div id="deleteMessage"></div>
+    </div>
+
+    {{ template "footer" . }}
+
+    <script>
+        // 提交删除请求的处理
+        document.getElementById('deleteForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            var productId = document.getElementById('productId').value;
+            
+            // 使用 fetch API 发送 DELETE 请求
+            fetch(`/product/${productId}`, {
+                method: 'DELETE',
+            })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('deleteMessage').innerHTML = `<p class="text-success">商品删除成功！</p>`;
+                } else {
+                    document.getElementById('deleteMessage').innerHTML = `<p class="text-danger">商品删除失败！</p>`;
+                }
+            })
+            .catch(error => {
+                document.getElementById('deleteMessage').innerHTML = `<p class="text-danger">请求失败: ${error.message}</p>`;
+            });
+        });
+    </script>
+{{ end }}
