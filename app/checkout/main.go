@@ -4,9 +4,9 @@ import (
 	"net"
 	"strings"
 
-	"gomall_demo/app/cart/biz/dal"
-	"gomall_demo/app/cart/conf"
-	"gomall_demo/app/cart/infra/rpc"
+	"gomall_demo/app/checkout/biz/dal"
+	"gomall_demo/app/checkout/conf"
+	"gomall_demo/app/checkout/infra/rpc"
 	"gomall_demo/common/mtl"
 	"gomall_demo/common/serversuite"
 	"gomall_demo/common/utils"

@@ -22,7 +22,7 @@ var (
 func InitClient() {
 	once.Do(func() {
 		initProductClient()
-		initProductClient()
+		initUserClient()
 	})
 }
 
