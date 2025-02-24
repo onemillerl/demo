@@ -21,7 +21,7 @@ func NewClearCartService(ctx context.Context) *ClearCartService {
 // Run create note info
 func (s *ClearCartService) Run(req *cart.ClearCartReq) (resp *cart.ClearCartResp, err error) {
 	log.Printf("来到后端ClearCartService这里了:")
-	log.Printf("要clear的用户ID:", req.UserId)
+	log.Printf("要clear的用户ID: %d", req.UserId)
 
 	err = model.EmptyCart(mysql.DB, s.ctx, req.GetUserId())
 	if err != nil {

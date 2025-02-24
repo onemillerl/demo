@@ -23,9 +23,9 @@ func NewUpdateUserInfoService(ctx context.Context) *UpdateUserInfoService {
 // Run create note info
 func (s *UpdateUserInfoService) Run(req *user.UpdateUserInfoReq) (resp *user.UpdateUserInfoResp, err error) {
 	// 校验用户ID是否有效
-	log.Printf("准备调用 ,UserId: %d, Email: %s,Nickname: %s ,Role: %s,Password: %s", req.UserId, req.Email, req.Nickname, req.Role, req.Password, req)
+	log.Printf("准备调用 ,UserId: %d, Email: %s,Nickname: %s ,Role: %s,Password: %s, All req: %+v", req.UserId, req.Email, req.Nickname, req.Role, req.Password, req)
 	log.Printf("确认密码PasswordConfirm: %s", req.PasswordConfirm)
-	log.Printf("更新时候默认的productid: %s", req.Productid)
+	log.Printf("更新时候默认的productid: %d", req.Productid)
 
 	if req.UserId <= 0 {
 		err = errors.New("invalid user_id")
@@ -74,7 +74,7 @@ func (s *UpdateUserInfoService) Run(req *user.UpdateUserInfoReq) (resp *user.Upd
 			Nickname: userinfo.Nickname,
 			Role:     userinfo.Role,
 		}
-		log.Printf("添加商品订单到用户成功的resp", resp)
+		log.Printf("添加商品订单到用户成功的resp: %+v", resp)
 		return resp, nil
 	}
 }
