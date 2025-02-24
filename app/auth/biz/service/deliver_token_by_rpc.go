@@ -22,7 +22,7 @@ func NewDeliverTokenByRPCService(ctx context.Context) *DeliverTokenByRPCService 
 func (s *DeliverTokenByRPCService) Run(req *auth.DeliverTokenReq) (*auth.DeliveryResp, error) {
 	// 构建 JWT token
 	log.Printf("准备开始调用 Token  generated userid: %d", req.UserId) // 添加日志
-	log.Printf("生成Token的信息: %+v", req)
+	log.Printf("生成Token的信息: %v", req)
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"userid": req.UserId,                            // 用户 ID

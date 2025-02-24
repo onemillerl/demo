@@ -2,20 +2,18 @@ package service
 
 import (
 	"context"
-	"testing"
 	auth "gomall_demo/rpc_gen/kitex_gen/auth"
+	"testing"
 )
 
 func TestVerifyTokenByRPC_Run(t *testing.T) {
 	ctx := context.Background()
-	s := NewVerifyTokenByRPCService(ctx)
-	// init req and assert value
 
-	req := &auth.VerifyTokenReq{}
-	resp, err := s.Run(req)
+	initAuthClient()
+	resp, err := authClient.VerifyTokenByRPC(ctx, &auth.VerifyTokenReq{
+		Token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDAyOTY5OTMsInJvbGUiOiJhZG1pbiIsInVzZXJpZCI6MX0.mLoER8UiCuBPEsuDdDMzEb2Xe3Dxng5VfVtDulhblFQ",
+	})
+
 	t.Logf("err: %v", err)
 	t.Logf("resp: %v", resp)
-
-	// todo: edit your unit test
-
 }

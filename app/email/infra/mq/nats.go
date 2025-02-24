@@ -24,7 +24,7 @@ var (
 )
 
 func Init() {
-	Nc, err = nats.Connect("nats://192.168.227.128:4222")
+	Nc, err = nats.Connect("nats://127.0.0.1:4222")
 	if err != nil {
 		panic(err)
 	}

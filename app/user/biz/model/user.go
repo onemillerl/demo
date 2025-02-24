@@ -25,7 +25,7 @@ type UserQuery struct {
 
 // TableName 指定表名
 func (User) TableName() string {
-	return "users"
+	return "user"
 }
 
 func NewUserQuery(ctx context.Context, db *gorm.DB) *UserQuery {

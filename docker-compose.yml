@@ -13,6 +13,8 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=demo_proto
+    volumes:
+      - ./db/sql/ini:/docker-entrypoint-initdb.d  # 挂载 SQL 脚本到初始化目录
   redis:
     image: "redis:latest"
     ports:

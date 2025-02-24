@@ -4,8 +4,8 @@ import (
 	"net"
 	"strings"
 
-	"gomall_demo/app/user/biz/dal"
-	"gomall_demo/app/user/conf"
+	"gomall_demo/app/payment/biz/dal"
+	"gomall_demo/app/payment/conf"
 	"gomall_demo/common/mtl"
 	"gomall_demo/common/utils"
 

@@ -60,7 +60,7 @@ func (s *DeleteProductService) Run(req *product.DeleteProductReq) (resp *product
 	if err != nil {
 		return nil, fmt.Errorf("Failed to  更新user 表中关联的产品ID表t: %v", err)
 	}
-	log.Printf("返回删除的商品情况:", userinforesp)
+	log.Printf("返回删除的商品情况: %v", userinforesp)
 
 	return &product.DeleteProductResp{
 		Id:   uint32(req.Id),

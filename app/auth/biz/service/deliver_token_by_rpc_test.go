@@ -9,16 +9,13 @@ import (
 
 func TestDeliverTokenByRPC_Run(t *testing.T) {
 	ctx := context.Background()
-	s := NewDeliverTokenByRPCService(ctx)
-	// init req and assert value
 
-	req := &auth.DeliverTokenReq{
-		UserId: int32(1),
+	initAuthClient()
+	resp, err := authClient.DeliverTokenByRPC(ctx, &auth.DeliverTokenReq{
+		UserId: 1,
 		Role:   "admin",
-	}
-	resp, err := s.Run(req)
+	})
+
 	t.Logf("err: %v", err)
 	t.Logf("resp: %v", resp)
-
-	// todo: edit your unit test
 }

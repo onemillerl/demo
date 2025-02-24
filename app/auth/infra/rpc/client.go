@@ -3,7 +3,7 @@ package rpc
 import (
 	"sync"
 
-	"gomall_demo/app/cart/conf"
+	"gomall_demo/app/auth/conf"
 	userutils "gomall_demo/app/user/utils"
 	"gomall_demo/rpc_gen/kitex_gen/user/userservice"
 

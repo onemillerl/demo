@@ -57,7 +57,7 @@ func (s *CreateProductService) Run(req *product.CreateProductReq) (resp *product
 	if err != nil {
 		return nil, fmt.Errorf("failed to create product: %v", err)
 	}
-	log.Printf("生成的产品信息:", newProduct)
+	log.Printf("生成的产品信息: %v", newProduct)
 	updatedUserResp, err := rpc.UserClient.UpdateUserInfo(s.ctx, &user.UpdateUserInfoReq{
 		UserId:          req.UserId,
 		Password:        req.Password,
