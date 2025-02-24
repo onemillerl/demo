@@ -32,7 +32,7 @@ func (s *GetProductcenterService) Run(req *product.GetProductcenterReq) (resp *p
 		UserId: req.UserId,
 		// Role:   row.Role,
 	})
-	log.Printf("调用后端的GetUserInfo查询用户产品id:", userinforesp)
+	log.Printf("调用后端的GetUserInfo查询用户产品id: %v", userinforesp)
 
 	if err != nil {
 		return nil, err
@@ -49,7 +49,7 @@ func (s *GetProductcenterService) Run(req *product.GetProductcenterReq) (resp *p
 			log.Printf("Error fetching product ID %d: %v", productId, err)
 			continue // Log the error and continue querying other products
 		}
-		log.Printf("查找的商品id:", p.ID)
+		log.Printf("查找的商品id: %d", p.ID)
 		if p.IsDeleted {
 			return nil, kerrors.NewGRPCBizStatusError(2004006, "product has been deleted")
 		}
@@ -62,7 +62,7 @@ func (s *GetProductcenterService) Run(req *product.GetProductcenterReq) (resp *p
 		}
 		products = append(products, product)
 	}
-	log.Printf("后端的GetProductcenterService调用成功:", userinforesp)
+	log.Printf("后端的GetProductcenterService调用成功: %v", userinforesp)
 
 	return &product.GetProductcenterResp{
 		Results: products,

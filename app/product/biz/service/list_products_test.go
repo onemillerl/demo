@@ -2,20 +2,18 @@ package service
 
 import (
 	"context"
-	"testing"
 	product "gomall_demo/rpc_gen/kitex_gen/product"
+	"testing"
 )
 
 func TestListProducts_Run(t *testing.T) {
 	ctx := context.Background()
-	s := NewListProductsService(ctx)
-	// init req and assert value
 
-	req := &product.ListProductsReq{}
-	resp, err := s.Run(req)
+	initProductClient()
+	resp, err := productClient.ListProducts(ctx, &product.ListProductsReq{
+		CategoryName: "sticker",
+	})
+
 	t.Logf("err: %v", err)
 	t.Logf("resp: %v", resp)
-
-	// todo: edit your unit test
-
 }

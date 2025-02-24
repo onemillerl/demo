@@ -41,7 +41,7 @@ func (s *VerifyTokenByRPCService) Run(req *auth.VerifyTokenReq) (*auth.VerifyRes
 		if !ok1 || !ok2 {
 			return nil, errors.New("invalid token payload")
 		}
-		log.Printf("Token 认证成功的claims", claims)
+		log.Printf("Token 认证成功的claims: %v", claims)
 
 		log.Printf("Token 认证成功, UserID: %d, Role: %s", int64(userID), role)
 

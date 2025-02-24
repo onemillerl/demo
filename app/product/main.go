@@ -6,6 +6,7 @@ import (
 
 	"gomall_demo/app/product/biz/dal"
 	"gomall_demo/app/product/conf"
+	"gomall_demo/app/product/infra/rpc"
 	"gomall_demo/common/mtl"
 	"gomall_demo/common/utils"
 
@@ -32,6 +33,8 @@ func main() {
 	})
 	mtl.InitTracing(serviceName)
 	mtl.InitMetric(serviceName, conf.GetConf().Kitex.MetricsPort, conf.GetConf().Registry.RegistryAddress[0])
+
+	rpc.InitClient()
 	dal.Init()
 	opts := kitexInit()
 

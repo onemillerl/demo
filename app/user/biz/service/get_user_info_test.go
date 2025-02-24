@@ -9,13 +9,12 @@ import (
 
 func TestGetUserInfo_Run(t *testing.T) {
 	ctx := context.Background()
-	s := NewGetUserInfoService(ctx)
-	// init req and assert value
 
-	req := &user.GetUserInfoReq{}
-	resp, err := s.Run(req)
+	initUserClient()
+	resp, err := userClient.GetUserInfo(ctx, &user.GetUserInfoReq{
+		UserId: 4,
+	})
+
 	t.Logf("err: %v", err)
 	t.Logf("resp: %v", resp)
-
-	// todo: edit your unit test
 }

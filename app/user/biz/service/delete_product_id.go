@@ -19,7 +19,7 @@ func NewDeleteProductIdService(ctx context.Context) *DeleteProductIdService {
 
 // Run create note info
 func (s *DeleteProductIdService) Run(req *user.DeleteProductIdReq) (resp *user.DeleteProductIdResp, err error) {
-	log.Printf("DeleteProductIdService要删除的productid: ", req.Id)
+	log.Printf("DeleteProductIdService要删除的productid: %d", req.Id)
 
 	if req.Id <= 0 {
 		return nil, errors.New("id is empty")
@@ -29,7 +29,7 @@ func (s *DeleteProductIdService) Run(req *user.DeleteProductIdReq) (resp *user.D
 	if err != nil {
 		return nil, errors.New("删除用户的商品Id失败")
 	}
-	log.Printf("成功DeleteProductIdService要删除的productid: ", req.Id)
+	log.Printf("成功DeleteProductIdService要删除的productid: %d", req.Id)
 
 	return &user.DeleteProductIdResp{
 		Success: true, // 表示删除操作成功

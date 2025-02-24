@@ -21,7 +21,7 @@ func NewGetUserInfoService(ctx context.Context) *GetUserInfoService {
 func (s *GetUserInfoService) Run(req *user.GetUserInfoReq) (*user.GetUserInfoResp, error) {
 	// 通过 UserId 获取用户信息
 	log.Printf("来到后端的GetUserInfoService函数这里了:")
-	log.Printf("要查询的用户id为:", req.UserId)
+	log.Printf("要查询的用户id为: %d", req.UserId)
 
 	userQuery := model.NewUserQuery(context.Background(), mysql.DB)
 	userInfo, productid, err := userQuery.GetUserInfo(mysql.DB, s.ctx, req.UserId)
