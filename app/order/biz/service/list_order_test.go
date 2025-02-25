@@ -2,20 +2,18 @@ package service
 
 import (
 	"context"
-	"testing"
 	order "gomall_demo/rpc_gen/kitex_gen/order"
+	"testing"
 )
 
 func TestListOrder_Run(t *testing.T) {
 	ctx := context.Background()
-	s := NewListOrderService(ctx)
-	// init req and assert value
 
-	req := &order.ListOrderReq{}
-	resp, err := s.Run(req)
+	initOrderClient()
+	resp, err := orderClient.ListOrder(ctx, &order.ListOrderReq{
+		UserId: 3,
+	})
+
 	t.Logf("err: %v", err)
 	t.Logf("resp: %v", resp)
-
-	// todo: edit your unit test
-
 }

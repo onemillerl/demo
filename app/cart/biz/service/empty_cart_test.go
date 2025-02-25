@@ -2,20 +2,18 @@ package service
 
 import (
 	"context"
-	"testing"
 	cart "gomall_demo/rpc_gen/kitex_gen/cart"
+	"testing"
 )
 
 func TestEmptyCart_Run(t *testing.T) {
 	ctx := context.Background()
-	s := NewEmptyCartService(ctx)
-	// init req and assert value
 
-	req := &cart.EmptyCartReq{}
-	resp, err := s.Run(req)
+	initCartClient()
+	resp, err := cartClient.EmptyCart(ctx, &cart.EmptyCartReq{
+		UserId: 3,
+	})
+
 	t.Logf("err: %v", err)
 	t.Logf("resp: %v", resp)
-
-	// todo: edit your unit test
-
 }

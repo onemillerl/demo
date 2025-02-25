@@ -7,24 +7,23 @@
     {{ if $.redirect }}
         <meta http-equiv="refresh" content="5;url={{ $.redirect }}"/>
     {{ end}}
-    <title>CloudWeGo Shop</title>
-    <link href="/static/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Douyin Shopping</title>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-            integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
             crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <body class="min-vh-100">
 <header>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container">
-        <img class="navbar-brand" href="#" src="/static/image/logo.jpg" alt="CloudWeGo" style="height: 3em;"/>
+        <img class="navbar-brand" href="#" src="/static/image/logo.jpg" alt="Douyin Shopping" style="height: 3em;"/>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">CloudWeGo Shop</a>
+            <a class="nav-link active" aria-current="page" href="/">Douyin Shopping</a>
             </li>
             <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -65,12 +64,12 @@
 
                 <!-- 弹窗触发按钮 -->
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateUserInfoModal">
-                    Update User Info
+                    Update UserInfo
                 </button>
                 <!-- 新增的删除用户链接 -->
                 <!-- 弹窗触发按钮 -->
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteUserModal">
-                    DeleteUser  
+                    Delete User  
                 </button>
                 <li>
                     <form action="/auth/logout" method="post">
@@ -153,9 +152,9 @@
         {{ end }}
     </div>
     </nav>
-    <div class="text-bg-primary text-center">
+    <!-- <div class="text-bg-primary text-center">
     <p>This Website is hosted for demo purposes only.It is not an actual shop</p>
-    </div>
+    </div> -->
 
     {{ if .error }}
     <div class="alert alert-danger text-center" role="alert">{{ .error }}</div>
